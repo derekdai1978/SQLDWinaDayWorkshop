@@ -1,0 +1,38 @@
+$env:AZCOPY_CRED_TYPE = "Anonymous";
+./azcopy.exe copy "C:\Users\usgsadmin\Documents\USGSData\weatherdata\" "https://dwdatdstorage.blob.core.windows.net/usgs/?se=2019-08-23T16%3A24%3A34Z&sp=rwl&sv=2018-03-28&sr=c&sig=9sUqWd7ierrmtWdUfAxsfZ50QXYYMAR9qMisAKffPQM%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5;
+$env:AZCOPY_CRED_TYPE = "";
+
+$env:AZCOPY_CRED_TYPE = "Anonymous";
+./azcopy.exe copy "C:\Users\usgsadmin\Documents\USGSData\" "https://dwdatdstorage.blob.core.windows.net/usgs/" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5;
+$env:AZCOPY_CRED_TYPE = "";
+
+$env:AZCOPY_CRED_TYPE = "Anonymous";
+./azcopy.exe copy "C:\Users\usgsadmin\Documents\USGSData\" "https://dwdatdstorage.blob.core.windows.net/usgs/?se=2019-08-23T17%3A36%3A26Z&sp=rwl&sv=2018-03-28&sr=c&sig=dN4oK8Vtm%2FIEPDOb4%2BHP76eJF%2Bkqvw3Od8bWkqQymDs%3D" --overwrite=false --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5;
+$env:AZCOPY_CRED_TYPE = "";
+
+
+azcopy.exe copy "c:\USGSData" "https://dwdatdstorage.blob.core.windows.net/usgsdata" /destkey:dRIZB1nQbsIa2pi+o45h1pFRbrNiiAbjMoT3WVlskJf7e9nCwgP9imVFwXm8oG7YYHZyTvWkCZQ/Qxj7UzsdbA== /s /overwrite=true /recursive
+
+azcopy.exe copy "c:\USGSData" "https://dwdatdstorage.blob.core.windows.net/usgsdata" --overwrite=true --recursive
+
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-user-delegation-sas-create-cli
+
+az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee styoung@microsoft.com \
+    --scope "/subscriptions/<subscription>/resourceGroups/<resource-group>/providers/Microsoft.Storage/storageAccounts/<storage-account>"
+
+
+az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee styoung@microsoft.com \
+    --scope "/subscriptions/<subscription>/resourceGroups/<resource-group>/providers/Microsoft.Storage/storageAccounts/<storage-account>"
+
+
+
+azcopy.exe copy "C:\usgsdata" "https://dwdatdstorage.blob.core.windows.net/usgsdata?se=2019-08-23T23%3A00%3A01Z&sp=rwl&sv=2018-03-28&sr=c&sig=bOeBBYQzezQgP2pO%2F56j5iYrQEn0o8%2BWvwFoGKA3e%2BU%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
+
+
+azcopy cp "https://CENSORED.blob.core.windows.net/CONTAINER1?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" "https://CENSORED.blob.core.windows.net/CONTAINER2?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" --recursive=true
+
+
