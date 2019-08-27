@@ -1,5 +1,5 @@
 ---''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
----  SQL SCRIPT: 01_CreateUsers.sql
+---  SQL SCRIPT: 02_CreateConnectivity_Blob.sql
 ---
 --- Description: Create Loading Users
 ---		 
@@ -27,6 +27,7 @@
 -- Create Database Scoped Credential: 
 -- https://msdn.microsoft.com/library/mt270260.aspx
 -- Shared Access Signatures cannot be used with Polybase
+-- https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-scoped-credential-transact-sql?view=sql-server-2017 
 -- Manage anonymous read access to containers and blobs
 -- https://docs.microsoft.com/en-us/azure/storage/blobs/storage-manage-access-to-resources
 -- Use PolyBase to read Blob Storage in Azure SQL DW

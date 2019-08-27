@@ -1,6 +1,6 @@
 
 
-azcopy.exe copy "C:\usgsdata" "https://dwdatdstorage.blob.core.windows.net/usgsdata?se=2019-08-23T23%3A00%3A01Z&sp=rwl&sv=2018-03-28&sr=c&sig=bOeBBYQzezQgP2pO%2F56j5iYrQEn0o8%2BWvwFoGKA3e%2BU%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
+azcopy.exe copy "C:\usgsdata" "https://dwdatdstorage.blob.core.windows.net/usgsdata?st=2019-08-27T22%3A02%3A48Z&se=2019-08-31T22%3A02%3A00Z&sp=racwdl&sv=2018-03-28&sr=c&sig=xkhS9CLnOT%2BLH%2FnkesXzpo%2FGkvzLCQ2lzl53UriV5Nc%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
 
 
 azcopy cp "https://CENSORED.blob.core.windows.net/CONTAINER1?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" "https://CENSORED.blob.core.windows.net/CONTAINER2?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" --recursive=true
