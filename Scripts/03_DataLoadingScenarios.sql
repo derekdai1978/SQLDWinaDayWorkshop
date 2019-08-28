@@ -145,6 +145,17 @@ WITH
     FORMAT_TYPE = DELIMITEDTEXT,
     FORMAT_OPTIONS
     (   
+        FIELD_TERMINATOR = '|'
+    )
+)
+GO
+
+CREATE EXTERNAL FILE FORMAT TextFileFormat  
+WITH 
+(   
+    FORMAT_TYPE = DELIMITEDTEXT,
+    FORMAT_OPTIONS
+    (   
         FIELD_TERMINATOR = '|',
 		DATE_FORMAT = 'yyyy-MM-dd',
 		USE_TYPE_DEFAULT =  TRUE,
@@ -152,7 +163,6 @@ WITH
     )
 )
 GO
-
 
 -- Create schema for external tables over Azure Data Lake Store Gen2
 CREATE SCHEMA [EXT]
