@@ -1,3 +1,4 @@
 THe following BLOB key was provided for the Workshop.  The key expires at the end of the workshop.
 
+For WeatherData Text
 9kOe50/BBz/JY4jqPe75rgVutUo8h6KFSUbI83mHfJoV7sBYzlp9+CTXv7fchuLldY08edW6deoWkNU7G6e8oA==
