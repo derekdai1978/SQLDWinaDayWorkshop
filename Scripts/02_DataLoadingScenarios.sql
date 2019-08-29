@@ -172,7 +172,7 @@ CREATE EXTERNAL TABLE [EXT].[factWeatherMeasurements]
 ) 
 WITH 
 ( 
-	DATA_SOURCE = USGSWeatherEvents, 
+	DATA_SOURCE = AzureBlobStore, 
 	LOCATION = '/usgsdata/weatherdata/factWeatherMeasurements/', 
 	FILE_FORMAT = TextFileFormat 
 ); 
@@ -190,7 +190,7 @@ CREATE EXTERNAL TABLE [EXT].[dimWeatherObservationTypes]
 ) 
 WITH 
 ( 
-	DATA_SOURCE = USGSWeatherEvents, 
+	DATA_SOURCE = AzureBlobStore, 
 	LOCATION = '/usgsdata/weatherdata/dimWeatherObservationTypes/', 
 	FILE_FORMAT = TextFileFormat 
 ); 
@@ -210,7 +210,7 @@ CREATE EXTERNAL TABLE [EXT].[dimUSFIPSCodes]
 ) 
 WITH 
 ( 
-	DATA_SOURCE = USGSWeatherEvents, 
+	DATA_SOURCE = AzureBlobStore, 
 	LOCATION = '/usgsdata/weatherdata/dimUSFIPSCodes/', 
 	FILE_FORMAT = TextFileFormat 
 ); 
@@ -237,7 +237,7 @@ CREATE EXTERNAL TABLE [EXT].[dimWeatherObservationSites]
 	) 
 WITH 
 ( 
-	DATA_SOURCE = USGSWeatherEvents, 
+	DATA_SOURCE = AzureBlobStore, 
 	LOCATION = '/usgsdata/weatherdata/dimWeatherObservationSites/', 
 	FILE_FORMAT = TextFileFormat 
 ); 
@@ -245,4 +245,47 @@ WITH
  select count(*) from [EXT].[dimWeatherObservationSites] 
 
 
+
+
+
+
+ /*-- CTAS External Tables into Staging Tables --*/
+
+ 
+--Weather Data
+--factWeatherMeasurements
+CREATE TABLE [STG].[factWeatherMeasurements]
+WITH
+(
+	CLUSTERED COLUMNSTORE INDEX,
+	DISTRIBUTION = ROUND_ROBIN
+)
+AS SELECT * FROM [EXT].[factWeatherMeasurements] OPTION(label = 'load_weatherfact');
+
+--dimWeatherObservationTypes
+CREATE TABLE [STG].[dimWeatherObservationTypes]
+WITH
+(
+	CLUSTERED COLUMNSTORE INDEX,
+	DISTRIBUTION = ROUND_ROBIN
+)
+AS SELECT * FROM [EXT].[dimWeatherObservationTypes] OPTION(label = 'load_weatherobservationtypes');
+
+--dimUSFIPSCodes
+CREATE TABLE [STG].[dimUSFIPSCodes]
+WITH
+(
+	CLUSTERED COLUMNSTORE INDEX,
+	DISTRIBUTION = ROUND_ROBIN
+)
+AS SELECT * FROM [EXT].[dimUSFIPSCodes] OPTION(label = 'load_fips');
+
+--dimWeatherObservationSites
+CREATE TABLE [STG].[dimWeatherObservationSites]
+WITH
+(
+	CLUSTERED COLUMNSTORE INDEX,
+	DISTRIBUTION = ROUND_ROBIN
+)
+AS SELECT * FROM [EXT].[dimWeatherObservationSites] OPTION(label = 'load_weatherobservationsites');
 
