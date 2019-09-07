@@ -10,6 +10,11 @@ The content contained in this repository suppors the Introduction to Databicks w
 | Time | Topic | Description | Materials |
 | --- | --- | --- | --- |
 | 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
+| 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
+| 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
+| 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
+| 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
+| 10:00am -10:15am |  Brief Intros to the team and getting settled in (15min) | Get settled in | N/A |
 | 10:15am - 10:45am | Overview of options for Machine Learning on Azure (30min) |   | Slides/Hand-On Lab Docs |
 | 10:45am - 11:30am  | Apache Spark on Databricks (45min) |   |   |
 |11:30am - 11:45pm   | Break (15min)  | Please take a break | N/A |
