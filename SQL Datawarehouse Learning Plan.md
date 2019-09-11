@@ -77,4 +77,4 @@ Azure SQL Data Warehouse releases new capabilities for performance and security 
 
  Tutorial: Load data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-wideworldimportersdw>
 
- Tutorial: Load New York Taxicab data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-from-azure-blob-storage-using-polybase>
+ Tutorial: Load New York Taxicab data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-from-azure-blob-storage-using-polybase> (See other links and list out)
