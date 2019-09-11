@@ -66,3 +66,15 @@ Costs - Manage compute in Azure SQL Data Warehouse - <https://docs.microsoft.com
 JSON data support for Azure SQL Data Warehouse is now in preview - <https://azure.microsoft.com/en-us/updates/json-data-support-for-azure-sql-data-warehouse-is-now-in-preview/>
 
 Azure SQL Data Warehouse releases new capabilities for performance and security - <https://azure.microsoft.com/en-au/blog/azure-sql-data-warehouse-releases-new-capabilities-for-performance-and-security/>
+
+
+
+##Labs and Online Training
+
+ Azure Data Factory Hands-on Lab V2 - Load Azure SQL Data Warehouse with ADF V2 - <https://www.youtube.com/watch?v=09gd-U9PF48>
+
+ Best practices for loading data into Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/guidance-for-loading-data>
+
+ Tutorial: Load data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-wideworldimportersdw>
+
+ Tutorial: Load New York Taxicab data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-from-azure-blob-storage-using-polybase>
