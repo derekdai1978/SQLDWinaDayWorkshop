@@ -1,58 +1,68 @@
-#SQL Datawarehouse Learning Plan
+# SQL Datawarehouse Learning Plan
 
-##Level 100 Intro
+## Level 100 Intro
 
-SQL Data Warehouse Documentation - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/ 
-MPP Architecture Components - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture 
-Solution Design - Cheat sheet for Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/cheat-sheet
-Scaling The DW -Data Warehouse Units (DWUs) and compute Data Warehouse Units (cDWUs) -  https://docs.microsoft.com/en-us/azure/sql-data-warehouse/what-is-a-data-warehouse-unit-dwu-cdwu
+SQL Data Warehouse Documentation - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/>
+MPP Architecture Components - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture>
 
-##Level 200 - Deeper Concepts
+Solution Design - Cheat sheet for Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/cheat-sheet>
 
-Designing a PolyBase data loading strategy for Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/design-elt-data-loading
+Scaling The DW -Data Warehouse Units (DWUs) and compute Data Warehouse Units (cDWUs) -  <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/what-is-a-data-warehouse-unit-dwu-cdwu>
 
-Guidance for designing distributed tables in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute
 
-Design guidance for using replicated tables in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/design-guidance-for-replicated-tables
+## Level 200 - Deeper Concepts
 
-Partitioning tables in SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-partition
+Designing a PolyBase data loading strategy for Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/design-elt-data-loading>
 
-Workload management with resource classes in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management 
+Guidance for designing distributed tables in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute>
 
-Best practices for loading data into Azure SQL Data Warehouse - 
-https://docs.microsoft.com/en-us/azure/sql-data-warehouse/guidance-for-loading-data
+Design guidance for using replicated tables in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/design-guidance-for-replicated-tables>
 
-Maximizing rowgroup quality for columnstore - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-memory-optimizations-for-columnstore-compression
+Partitioning tables in SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-partition>
 
-Columnstore indexes: Overview - SQL Server | Microsoft Docs. https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017
+Workload management with resource classes in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management>
+
+Best practices for loading data into Azure SQL Data Warehouse -
+<https://docs.microsoft.com/en-us/azure/sql-data-warehouse/guidance-for-loading-data>
+
+Maximizing rowgroup quality for columnstore - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-memory-optimizations-for-columnstore-compression>
+
+Columnstore indexes: Overview - SQL Server | Microsoft Docs. <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017>
 
 Resource classes for workload management in Azure SQL Data Warehouse | Microsoft Docs - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management#change-a-users-resource-class.> = Loading data and Query runs
 
-##Level 300 - Optimization and Deep Technical 
+## Level 300 - Optimization and Deep Technical
 
-Table statistics in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-statistics
+Table statistics in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-statistics>
 
-Workload management with resource classes in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management
+Workload management with resource classes in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management>
 
-###Monitoring
-Monitoring resource utilization and query activity in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-concept-resource-utilization-query-activity 
+### Monitoring
+Monitoring resource utilization and query activity in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-concept-resource-utilization-query-activity>
 
 
-Data Operations - 
-Backup and restore in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/backup-and-restore 
+Data Operations -
+Backup and restore in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/backup-and-restore>
 
-Azure SQL Data Warehouse workload classification - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-workload-classification
+Azure SQL Data Warehouse workload classification - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-workload-classification>
 
-Monitor your workload using DMVs - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-monitor
+Monitor your workload using DMVs - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-monitor>
 
 Unlock Query Performance with SQL Data Warehouse using Graphical Execution Plans - <https://azure.microsoft.com/en-us/blog/unlock-query-performance-with-sql-data-warehouse-using-graphical-execution-plans/>
 
-##Level 400 - Best Practices / Lessons from the field / Use Cases
+## Level 400 - Best Practices / Lessons from the field / Use Cases
 
-Common ISV application patterns using Azure SQL Data Warehouse - https://blogs.msdn.microsoft.com/sqlcat/2017/09/05/common-isv-application-patterns-using-azure-sql-data-warehouse/ 
+Common ISV application patterns using Azure SQL Data Warehouse - <https://blogs.msdn.microsoft.com/sqlcat/2017/09/05/common-isv-application-patterns-using-azure-sql-data-warehouse/>
 
-Migrating data to Azure SQL Data Warehouse in practice - https://blogs.msdn.microsoft.com/sqlcat/2016/08/18/migrating-data-to-azure-sql-data-warehouse-in-practice/
+Migrating data to Azure SQL Data Warehouse in practice - <https://blogs.msdn.microsoft.com/sqlcat/2016/08/18/migrating-data-to-azure-sql-data-warehouse-in-practice/>
 
-Azure SQL Data Warehouse Workload Patterns and Anti-Patterns - https://blogs.msdn.microsoft.com/sqlcat/2017/09/05/azure-sql-data-warehouse-workload-patterns-and-anti-patterns/
+Azure SQL Data Warehouse Workload Patterns and Anti-Patterns - <https://blogs.msdn.microsoft.com/sqlcat/2017/09/05/azure-sql-data-warehouse-workload-patterns-and-anti-patterns/>
 
-Costs - Manage compute in Azure SQL Data Warehouse - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview 
+Costs - Manage compute in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview>
+
+
+## New Features Released
+
+JSON data support for Azure SQL Data Warehouse is now in preview - <https://azure.microsoft.com/en-us/updates/json-data-support-for-azure-sql-data-warehouse-is-now-in-preview/>
+
+Azure SQL Data Warehouse releases new capabilities for performance and security - <https://azure.microsoft.com/en-au/blog/azure-sql-data-warehouse-releases-new-capabilities-for-performance-and-security/>
