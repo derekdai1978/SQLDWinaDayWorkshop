@@ -48,6 +48,10 @@ Azure SQL Data Warehouse workload classification - <https://docs.microsoft.com/e
 
 Monitor your workload using DMVs - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-monitor>
 
+Migrating data to Azure SQL Data Warehouse in practice - <https://blogs.msdn.microsoft.com/sqlcat/2016/08/18/migrating-data-to-azure-sql-data-warehouse-in-practice/>
+
+Azure SQL Data Warehouse loading patterns and strategies - <https://techcommunity.microsoft.com/t5/DataCAT/Azure-SQL-Data-Warehouse-loading-patterns-and-strategies/ba-p/305456>
+
 Unlock Query Performance with SQL Data Warehouse using Graphical Execution Plans - <https://azure.microsoft.com/en-us/blog/unlock-query-performance-with-sql-data-warehouse-using-graphical-execution-plans/>
 
 ## Level 400 - Best Practices / Lessons from the field / Use Cases
