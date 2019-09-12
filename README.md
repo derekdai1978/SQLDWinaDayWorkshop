@@ -1,5 +1,5 @@
-# SQLDWinaDayWorkshop
-Repository for DW in a Day workshop
+# SQL Datawarehouse in a Day Workshop
+Repository for DW in a Day workshop - <https://github.com/steveyoungca/SQLDWinaDayWorkshop>
 
 Montreal: September 16, 2019 | 9AM - 5PM (EST)
 Ottawa: September 18, 2019 | 9AM - 5PM (EST)
@@ -13,9 +13,9 @@ The content contained in this repository suppors the Introduction to Databicks w
 
 | Time | Topic | Description | Materials |
 | --- | --- | --- | --- |
-| 09:00am - 09:15am |  Brief Intros of the team (15min) | Welcome | N/A |
+| 09:00am - 09:15am | Introductions & Logistics (15min) | Welcome | N/A |
 | 09:15am - 10:00am |  Datawarehouse Patterns in Azure & SQL DW Overview (45min) | Slide Deck 01 | N/A |
-| 10:00am - 10:45am |  SQL DW Gen2 New Features & Functionality (45min) | Slide Deck 02 | N/A |
+| 10:00am - 10:45am |  SQL DW Gen2 New Features & Planning Your Project Build (45min) | Slide Deck 02 | N/A |
 |10:45am - 11:00pm   | Break (15min)  | Please take a break | N/A |
 | 11:00am -12:00pm |  Demo & Lab 01  (60 Min) | Setting up the LAB environment | Lab 01 |
 | 12:00pm -1:00pm |  Lunch  (60 Min) | Lunch and complete lab 01 | N/A |
@@ -30,7 +30,7 @@ The content contained in this repository suppors the Introduction to Databicks w
 Steve's GitHub Source https://github.com/steveyoungca/SQLDWinaDayWorkshop
 
 
-## Apache Spark on Databricks
+## Objectives
 
 <<< Need to update with the objectives of the class>>>
 
