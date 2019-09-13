@@ -113,3 +113,4 @@ Create a function in Azure that is triggered by a timer - <https://docs.microsof
 
  Heaps (Tables without Clustered Indexes) - <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/heaps-tables-without-clustered-indexes?view=sql-server-2017>
 
+EOF
