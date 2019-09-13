@@ -66,6 +66,8 @@ Azure SQL Data Warehouse Workload Patterns and Anti-Patterns - <https://blogs.ms
 
 Costs - Manage compute in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-manage-compute-overview>
 
+How many queries and slots are running in my Azure SQL Data Warehouse? <https://blogs.msdn.microsoft.com/sqldw/2018/03/08/how-many-queries-and-slots-are-running-in-my-azure-sql-data-warehouse/>
+
 
 ## New Features Released
 
@@ -96,3 +98,18 @@ Create a function in Azure that is triggered by a timer - <https://docs.microsof
  A visual representation and reference to Azure services (Anton Romanov - https://github.com/nnmer) - <https://nnmer.github.io/azure-services-map/dist/>
 
  SQL Data Warehouse samples repository - <https://github.com/Microsoft/sql-data-warehouse-samples>
+
+ Azure SQL Data Warehouse current release notes - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/release-notes-10-0-10106-0>
+
+ Memory and concurrency limits for Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/memory-and-concurrency-limits>
+
+ Indexing tables in SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-index>
+
+ Columnstore indexes: Overview - <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017>
+
+ Columnstore indexes - Data Warehouse - <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/heaps-tables-without-clustered-indexes?view=sql-server-2017>
+
+ Clustered and Nonclustered Indexes Described - <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-2017>
+
+ Heaps (Tables without Clustered Indexes) - <https://docs.microsoft.com/en-us/sql/relational-databases/indexes/heaps-tables-without-clustered-indexes?view=sql-server-2017>
+

@@ -41,10 +41,13 @@ This script is given "As Is" with no warranties and plenty of caveats. Use at yo
 -----------------------------------------------------------------------
 
 
--- A: Create a Database Master Key.
+-- A: Create a Database Master Key And Certificate
 -- Only necessary if one does not already exist.
 -- Required to encrypt the credential secret in the next step.
 -- For more information on Master Key: https://msdn.microsoft.com/library/ms174382.aspx?f=255&MSPPError=-2147217396
+
+
+
 
 --CREATE MASTER KEY;
 
@@ -87,7 +90,7 @@ DROP EXTERNAL DATA SOURCE AzureBlobStore;
 go
 
 
-DROP DATABASE SCOPED CREDENTIAL BLOBCredentialDEV;  
+--DROP DATABASE SCOPED CREDENTIAL BLOBCredentialDEV;  
 
 CREATE DATABASE SCOPED CREDENTIAL BLOBCredentialDEV
 WITH
@@ -107,13 +110,18 @@ WITH
 --    SECRET = 'BjdIlmtKp4Fpyh9hIvr8HJlUida/seM5kQ3EpLAmeDI='
 ;
 
+--==============================================================================
 -- C: Create an external data source
+--==============================================================================
+
+
+
 -- TYPE: HADOOP - PolyBase uses Hadoop APIs to access data in Azure Data Lake Store.
 -- LOCATION: Provide Azure Data Lake accountname and URI
 -- CREDENTIAL: Provide the credential created in the previous step.
 
 
--- Option 7: Azure blob storage (WASB[S])
+ 
 --sp_configure 'Hadoop connectivity', 7
 --Reconfigure
 
@@ -141,12 +149,18 @@ GO
 
 -- Create schema for external tables over Azure Data Lake Store Gen2
 CREATE SCHEMA [EXT]
+GO
 
 -- Create schema for staging tables after loading
 CREATE SCHEMA [STG]
-
+GO
 -- Create schema for cleaned production tables
 CREATE SCHEMA [PROD]
+GO
+
+-- Create schema for cleaned production tables
+CREATE SCHEMA [staging]
+GO
 
 
 /*  Clean UP   
@@ -179,8 +193,9 @@ WITH
 
 select count(*) from [EXT].[factWeatherMeasurements] 
 
-
-
+--====================================================================================
+--   Running the rest of the script will create the other tables and datawarehouse
+--===================================================================================
 --dimWeatherObservationTypes 
 CREATE EXTERNAL TABLE [EXT].[dimWeatherObservationTypes] 
 ( 
@@ -285,101 +300,4 @@ WITH
 	DISTRIBUTION = ROUND_ROBIN
 )
 AS SELECT * FROM [EXT].[dimWeatherObservationSites] OPTION(label = 'load_weatherobservationsites');
-
-
-
-
---- Create external tables in different formats
-https://www.ben-morris.com/polybase-import-and-export-between-azure-sql-data-warehouse-and-blob-storage/
-
--- Create an external table with location etc
-
-
-CREATE EXTERNAL FILE FORMAT compressed_TextFileFormat_Ready 
-WITH 
-(   
-    FORMAT_TYPE = DELIMITEDTEXT,
-    FORMAT_OPTIONS
-    (   
-        FIELD_TERMINATOR = '|'
-    ), DATA_COMPRESSION = N'org.apache.hadoop.io.compress.GzipCodec'
-)
-GO
-
-
-CREATE EXTERNAL TABLE [EXT].[factWeatherMeasurements_Exported] 
-WITH 
-( 
-	DATA_SOURCE = USGSWeatherEvents, 
-	LOCATION = '/usgsdata/weatherdata/factWeatherMeasurements/Compressed_Text_files', 
-	FILE_FORMAT = [compressed_TextFileFormat_Ready]
-)
-as
-Select 
-	[StationId], 
-	[ObservationTypeCode],
-	[ObservationValueCorrected], 
-	[ObservationValue],
-	[ObservationDate],
-	[ObservationSourceFlag],
-	[fipscountycode]
-	From [STG].[factWeatherMeasurements]
-
-
-
--- As load user (usgsLoader)
-
-CREATE TABLE [STG].[STG_compressed_text_load]
-WITH
-(
-DISTRIBUTION = ROUND_ROBIN,
-HEAP
-)
-AS
-SELECT *  
-FROM [EXT].[factWeatherMeasurements_Exported] 
-OPTION (label = 'STG_compressed_text_load')
-
-
-
-CREATE EXTERNAL FILE FORMAT [Parquet] WITH (FORMAT_TYPE = PARQUET)
-GO
-
-
-
-CREATE EXTERNAL TABLE [EXT].[factWeatherMeasurements_ExportedParquet] 
-WITH 
-( 
-	DATA_SOURCE = USGSWeatherEvents, 
-	LOCATION = '/usgsdata/weatherdata/factWeatherMeasurements/Parquet_files', 
-	FILE_FORMAT = [Parquet]
-)
-as
-Select 
-	[StationId], 
-	[ObservationTypeCode],
-	[ObservationValueCorrected], 
-	[ObservationValue],
-	[ObservationDate],
-	[ObservationSourceFlag],
-	[fipscountycode]
-	From [STG].[factWeatherMeasurements]
-
-
-
---Execute the following CTAS as load user (usgsLoader)
--- Reload the table
-
-CREATE TABLE [STG].[STG_parquet_load]
-WITH
-(
-DISTRIBUTION = ROUND_ROBIN,
-HEAP
-)
-AS
-SELECT *  
-FROM [EXT].[factWeatherMeasurements_ExportedParquet]
-OPTION (label = 'STG_parquet_load')
-GO
-
 

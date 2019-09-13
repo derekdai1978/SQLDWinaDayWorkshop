@@ -1,18 +1,18 @@
+Note that the keys are not correct and provided as examples
 
-
-azcopy.exe copy "C:\usgsdata" "https://dwdatdstorage.blob.core.windows.net/usgsdata?st=2019-08-27T22%3A02%3A48Z&se=2019-08-31T22%3A02%3A00Z&sp=racwdl&sv=2018-03-28&sr=c&sig=xkhS9CLnOT%2BLH%2FnkesXzpo%2FGkvzLCQ2lzl53UriV5Nc%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
+azcopy.exe copy "C:\usgsdata" "https://CENSORED.blob.core.windows.net/usgsdata?st=2019-08-27T22%3A02%3A48Z&se=2019-08-31T22%3A02%3A00Z&sp=racwdl&sv=2018-03-28&sr=c&sig=xkhS9CLnOT%2BLH%2FnkesXzpo%2FGkvzLCQ2lzl53UriV5Nc%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
 
 
 azcopy cp "https://CENSORED.blob.core.windows.net/CONTAINER1?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" "https://CENSORED.blob.core.windows.net/CONTAINER2?sv=2017-11-09&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-10-25T21:22:33Z&st=2018-10-22T13:22:33Z&spr=https&sig=CENSORED" --recursive=true
 
-azcopy.exe copy "https://dwdatdstorage.blob.core.windows.net/usgsdatahttps://dwdatdstorage.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A38%3A35Z&se=2019-08-30T20%3A38%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=nz0RSnuvRh2HMUxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthrough.blob.core.windows.net/usgsdatahttps://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A39%3A23Z&se=2019-08-27T20%3A39%3A23Z&sp=rwl&sv=2018-03-28&sr=c&sig=qorRciRZyR9vQeDNVVTDANw3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
+azcopy.exe copy "https://CENSORED.blob.core.windows.net/usgsdatahttps://CENSORED.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A38% 019-08-30T20%3A38%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=nz0RSnuvRh2HMUxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthrough.blob.core.windows.net/usgsdatahttps://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A39 =2019-08-27T20%3A39%3A23Z&sp=rwl&sv=2018-03-28&sr=c&sig=qorRciRZyR9vQeDN w3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5
 
 https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10
 
 create a SAS Read
 
-azcopy.exe copy "https://dwdatdstorage.blob.core.windows.net/usgsdatahttps://dwdatdstorage.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A38%3A35Z&se=2019-08-30T20%3A38%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=nz0RSnuvRh2HMUxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthrough.blob.core.windows.net/usgsdatahttps://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A39%3A23Z&se=2019-08-27T20%3A39%3A23Z&sp=rwl&sv=2018-03-28&sr=c&sig=qorRciRZyR9vQeDNVVTDANw3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --follow-symlinks --recursive --blob-type=BlockBlob --put-md5
+azcopy.exe copy "https://CENSORED.blob.core.windows.net/usgsdatahttps://CENSORED.blob.core.windows.net/usgsdata?st=2019-08-26T -08-30T20%3A38%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=nz0RSnuvRh2HMUxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthrough.blob.core.windows.net/usgsdatahttps://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26 se=2019-08-27T20%3A39%3A23Z&sp=rwl&sv=2018-03-28&sr=c&sig=qorRciRZyR9vQeDNVVTDANw3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --follow-symlinks --recursive --blob-type=BlockBlob --put-md5
 
 https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-blobs?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
-azcopy.exe copy "https://dwdatdstorage.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A38%3A35Z&se=2019-08-30T20%3A38%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=nz0RSnuvRh2HMUxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A39%3A23Z&se=2019-08-27T20%3A39%3A23Z&sp=rwl&sv=2018-03-28&sr=c&sig=qorRciRZyR9vQeDNVVTDANw3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --recursive --blob-type=BlockBlob
+azcopy.exe copy "https://CENSORED.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A38%3A35Z&se=2019 p=rl&sv=2018-03-28&sr=c&sig=nz0RSn Uxq5g7X4X7Qwl%2Fb1Nfnb877u3TVcPE%3D" "https://dwlabwalkthorugh.blob.core.windows.net/usgsdata?st=2019-08-26T20%3A39%3A23Z&se=2019-08-27T20%3A wl&sv=2018-03-28&sr=c&sig=qorRciRZ VTDANw3Qg%2F%2Bpp7djm%2B1r4H9nXw%3D" --overwrite=true --recursive --blob-type=BlockBlob
