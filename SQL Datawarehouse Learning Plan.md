@@ -54,6 +54,8 @@ Azure SQL Data Warehouse loading patterns and strategies - <https://techcommunit
 
 Unlock Query Performance with SQL Data Warehouse using Graphical Execution Plans - <https://azure.microsoft.com/en-us/blog/unlock-query-performance-with-sql-data-warehouse-using-graphical-execution-plans/>
 
+
+
 ## Level 400 - Best Practices / Lessons from the field / Use Cases
 
 Common ISV application patterns using Azure SQL Data Warehouse - <https://blogs.msdn.microsoft.com/sqlcat/2017/09/05/common-isv-application-patterns-using-azure-sql-data-warehouse/>
@@ -82,3 +84,15 @@ Azure SQL Data Warehouse releases new capabilities for performance and security 
  Tutorial: Load data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-wideworldimportersdw>
 
  Tutorial: Load New York Taxicab data to Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/load-data-from-azure-blob-storage-using-polybase> (See other links and list out)
+
+Use Azure Functions to manage compute resources in Azure SQL Data Warehouse - <https://docs.microsoft.com/en-us/azure/sql-data-warehouse/manage-compute-with-azure-functions>
+
+ ## Other Resources 
+
+Autoscaling Azure Resources - <https://docs.microsoft.com/en-us/azure/architecture/best-practices/auto-scaling>
+
+Create a function in Azure that is triggered by a timer - <https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-scheduled-function>
+
+ A visual representation and reference to Azure services (Anton Romanov - https://github.com/nnmer) - <https://nnmer.github.io/azure-services-map/dist/>
+
+ SQL Data Warehouse samples repository - <https://github.com/Microsoft/sql-data-warehouse-samples>
