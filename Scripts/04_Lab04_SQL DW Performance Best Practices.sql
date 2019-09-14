@@ -54,12 +54,14 @@ CREATE EXTERNAL TABLE [dbo].[dimWeatherObservationSites_EXT]
 	[UTCOffset] [nvarchar](10) NULL
 )
 WITH
-(DATA_SOURCE = AzureBlobStore,
+(DATA_SOURCE = USGSWeatherEvents,
 LOCATION = N'/usgsdata/weatherdata/dimWeatherObservationSites',
 FILE_FORMAT = [TextFileFormat_Ready],
 REJECT_TYPE = VALUE,
 REJECT_VALUE = 0)
 GO
+
+-- Drop Table [dbo].[dimWeatherObservationSites]
 
 CREATE TABLE [dbo].[dimWeatherObservationSites]
 WITH
@@ -70,10 +72,12 @@ WITH
 AS SELECT * FROM [dbo].[dimWeatherObservationSites_EXT]
 GO
 
+-- Drop Table [dbo].[factWeatherMeasurements]
+
 CREATE TABLE [dbo].[factWeatherMeasurements]
 WITH
 (
-	DISTRIBUTION = HASH([fpscode])
+	DISTRIBUTION = HASH([fipscountycode])
 	)
 AS SELECT * FROM [staging].[STG_text_load]
 GO
@@ -111,15 +115,15 @@ AS SELECT * FROM dimWeatherObservationSites
 
 
 --4.	Execute the following query in the same query window.
- SELECT ReadingTimestamp,
-	a.SiteName,
-	a.fpscode,	
-	b.StationLatitude,
-	b.StationLongitude
+ SELECT [ObservationTypeCode],
+	a.[StationId],
+	a.[fipscountycode],	
+	b.[StationLatitude],
+	b.[StationLongitude]
  FROM	factWeatherMeasurements a
  JOIN	dimWeatherObservationSites_repl b 
- ON a.fpscode = b.FIPSCountyCode
- WHERE	a.fpscode = '06037' and ReadingTypeID = 65 
+ ON a.[fipscountycode]  = b.FIPSCountyCode
+ WHERE	a.[fipscountycode] = '06037' and a.[ObservationTypeCode] = 'SNOW' and a.[StationID] = 'USC00040798'
  OPTION (LABEL = 'ReplicatedTableQuery')
 
 
@@ -134,7 +138,7 @@ WHERE [label] = 'ReplicatedTableQuery';
 --		distributed query (DSQL) plan for the query (What operation took the longest time to execute and why?)
 /*
  SELECT * FROM sys.dm_pdw_request_steps
-WHERE request_id = 'QID5010'
+WHERE request_id = 'QID8114'
 ORDER BY step_index;
 */
 
@@ -195,14 +199,39 @@ WHERE command like 'BuildReplicatedTableCache%';
 --3.	Open a new query window and copy/paste the following query. Click on the Display Estimated Execution Plan icon   
 --		and observe the output. What step is estimated to take the longest time?
 
+
+--Select top 10 * from [staging].[STG_Hash_ReadingUnit]
+--Select top 10 * from [dbo].[dimWeatherObservationSites] where fipsCountycode is not null
+ 
+ --Original Query 
+-- SELECT	ReadingTimestamp,
+--	a.fpscode,	
+--LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--FROM [staging].[STG_Hash_ReadingUnit] a
+--JOIN [dbo].[dimWeatherObservationSites] b
+--ON a.fpscode = b.fipsCountycode
+--WHERE	a.fpscode like '1%' 
+--OPTION (label = 'slow_query')
+
+-- SELECT	top 10 * 
+--FROM [staging].[STG_Hash_ReadingUnit] a
+--JOIN [dbo].[dimWeatherObservationSites] b
+--ON a.fpscode = b.fipsCountycode
+--WHERE	b.fipsCountycode like '06%' 
+--OPTION (label = 'slow_query')
+
+
  SELECT	ReadingTimestamp,
 	a.fpscode,	
 LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
 FROM [staging].[STG_Hash_ReadingUnit] a
 JOIN [dbo].[dimWeatherObservationSites] b
 ON a.fpscode = b.fipsCountycode
-WHERE	a.fpscode like '1%' 
+WHERE	b.fipsCountycode like '06%'  
 OPTION (label = 'slow_query')
+
+
+
 
 
 --4.	Click on ‘Execute’ to run the query (you may not see any results).
@@ -220,7 +249,7 @@ WHERE [label] = 'slow_query';
 --		(DSQL) plan for the query (What operation took the longest time to execute and why?)
 /*
 SELECT * FROM sys.dm_pdw_request_steps
-WHERE request_id = 'QID5059'
+WHERE request_id = 'QID8306'
 ORDER BY step_index;
 */
 
@@ -233,7 +262,7 @@ ORDER BY step_index;
 --		This will show the execution information of the query step.
 /*
 SELECT * FROM sys.dm_pdw_sql_requests
-WHERE request_id = 'QID5059' AND step_index = 5;
+WHERE request_id = 'QID8306' AND step_index = 2;
 */
 SELECT * FROM sys.dm_pdw_sql_requests
 WHERE request_id = '<request_id>' AND step_index = <index>;
@@ -243,7 +272,7 @@ WHERE request_id = '<request_id>' AND step_index = <index>;
 --		about the data movement step. What can we do to eliminate the data movement step?
 /*
 SELECT * FROM sys. dm_pdw_dms_workers
-WHERE request_id = 'QID5059' AND step_index = 5;
+WHERE request_id = 'QID5059' AND step_index = 2;
 */
  SELECT * FROM sys. dm_pdw_dms_workers
 WHERE request_id = '<request_id>' AND step_index = <index>;
@@ -253,15 +282,26 @@ WHERE request_id = '<request_id>' AND step_index = <index>;
 --		Do you see any data movement step in the plan? Why or Why not?
 
 
- SELECT	ReadingTimestamp,
-	a.fpscode,	
-LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+-- SELECT	ReadingTimestamp,
+--	a.fpscode,	
+--LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--FROM [dbo].[factWeatherMeasurements] a
+--JOIN [dbo].[dimWeatherObservationSites] b
+--ON a.fpscode = b.fipsCountycode
+--WHERE	a.fpscode like '1%' 
+--OPTION (label = 'fast_query')
+
+--select top 10 * from [dbo].[factWeatherMeasurements]
+
+
+ SELECT	[ObservationDate],
+	a.[fipscountycode],	
+LAG([ObservationValueCorrected]) OVER (PARTITION BY a.[fipscountycode], b.StationId ORDER BY [ObservationDate] ASC) AS PreviousValue, [ObservationValueCorrected]
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
-ON a.fpscode = b.fipsCountycode
-WHERE	a.fpscode like '1%' 
+ON a.[fipscountycode] = b.fipsCountycode
+WHERE	a.[fipscountycode] like '1%' 
 OPTION (label = 'fast_query')
-
 
 --10.	Click on ‘Execute’ to run the query (you may not see any results).
 
@@ -283,26 +323,45 @@ OPTION (label = 'fast_query')
 --2.	Expand ‘Databases’ node in the left pane and select ‘AdventureWorksDW’ database. 
 --	   	Open the following SQL script in new query window and Click on ‘Execute’ to run the query. 
 
-SELECT	ReadingTimestamp,
-	a.fpscode,	
-	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--Original Query
+
+--SELECT	ReadingTimestamp,
+--	a.fpscode,	
+--	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--FROM [dbo].[factWeatherMeasurements] a
+--JOIN [dbo].[dimWeatherObservationSites] b
+--ON a.fpscode = b.fipsCountycode
+--OPTION (label = 'long_query')
+ 
+ SELECT	[ObservationDate], 
+	a.[fipscountycode],
+	LAG([ObservationValueCorrected]) OVER (PARTITION BY a.[fipscountycode], b.StationId ORDER BY [ObservationDate] ASC) AS PreviousValue, [ObservationValueCorrected]
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
-ON a.fpscode = b.fipsCountycode
+ON a.[fipscountycode] = b.fipsCountycode
 OPTION (label = 'long_query')
- 
+
 
 --3.	While the above query running, open a new query window as ‘sqladmin’ user and execute the following SQL script in it.
 
- SELECT	ReadingTimestamp,
-	a.fpscode,	
-	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--Original query
+-- SELECT	ReadingTimestamp,
+--	a.fpscode,	
+--	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+--FROM [dbo].[factWeatherMeasurements] a
+--JOIN [dbo].[dimWeatherObservationSites] b
+--ON a.fpscode = b.fipsCountycode
+--WHERE	a.fpscode like '1%'
+--OPTION (label = 'fast_query')
+
+ SELECT	[ObservationDate],
+	a.[fipscountycode],	
+LAG([ObservationValueCorrected]) OVER (PARTITION BY a.[fipscountycode], b.StationId ORDER BY [ObservationDate] ASC) AS PreviousValue, [ObservationValueCorrected]
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
-ON a.fpscode = b.fipsCountycode
-WHERE	a.fpscode like '1%'
+ON a.[fipscountycode] = b.fipsCountycode
+WHERE	a.[fipscountycode] like '1%' 
 OPTION (label = 'fast_query')
-
 
 --4.	Open a new query window and execute the following query to monitor the previous query 
 --		execution (Do you see any queries in ‘Suspended’ state, why?  Hint: Notice the ‘resource_class’ column)
@@ -398,15 +457,14 @@ FROM sys.databases;
 
 --5.	Execute the following query in the new query window.
 
- SELECT	TOP 5 ReadingTimestamp,
-	a.fpscode,	
-	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+ SELECT	TOP 5 [ObservationDate],
+	a.[fipscountycode],	
+	LAG([ObservationValue]) OVER (PARTITION BY a.[fipscountycode], b.StationId ORDER BY [ObservationDate] ASC) AS PreviousValue, [ObservationValue]
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
-ON a.fpscode = b.fipsCountycode
-where a.fpscode > 50000
+ON a.[fipscountycode] = b.fipsCountycode
+where a.[fipscountycode] > 50000
 OPTION (label = 'longer_query')
-
 
 --6.	Wait until the query execution completes and note down the duration.
 
@@ -440,16 +498,18 @@ WHERE [label] = 'longer_query')
 
 --11.	Slightly modify the long query by changing the value in the WHERE condition as below and re-execute the query. 
 
-SELECT	TOP 5 ReadingTimestamp,
-	a.fpscode,	
-	LAG(ReadingValue) OVER (PARTITION BY a.fpscode, b.StationId ORDER BY ReadingTimestamp ASC) AS PreviousValue, ReadingValue
+-- select top 10000 * from [dbo].[factWeatherMeasurements] where [ObservationValueCorrected] > 0
+
+
+SELECT	TOP 5 [ObservationDate],
+	a.[fipscountycode],	
+	LAG([ObservationValueCorrected]) OVER (PARTITION BY a.[fipscountycode], b.StationId ORDER BY [ObservationDate] ASC) AS PreviousValue, [ObservationValueCorrected]
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
-ON a.fpscode = b.fipsCountycode
-where a.fpscode > 50001
+ON a.[fipscountycode] = b.fipsCountycode
+where a.[fipscountycode] > 50001 
 OPTION (label = 'longer_query2')
 
- 
 
 --Did it still finish executing under a second? Why or why not?
 

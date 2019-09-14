@@ -1,6 +1,8 @@
 ﻿<#
 .SYNOPSIS
   This script readies a client machine with files and data needed to complete DW workshop
+  This is run by the Lab Administrators so that the files are ready for the Students.
+  Students do not have AD rights to run this script.
 #>
 $ErrorActionPreference = "Stop"
 $downloadPath = "C:\USGSData3"

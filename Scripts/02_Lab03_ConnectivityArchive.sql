@@ -1,5 +1,5 @@
 ---''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
----  SQL SCRIPT: 02_CreateConnectivity_Blob.sql
+---  SQL SCRIPT: 02_Lab03_ConnectivityArchive.sql
 ---
 --- Description: Create Loading Users
 ---		 
@@ -79,7 +79,9 @@ ELSE
       PRINT 'AzureDemoDataSecurityCertificate Already Exists.'
   END 
 
-
+--  ===================================================================
+--              Database Scoped Credential - Run In AdventureWorksDW
+--  =================================================================== 
 -- B: Create a database scoped credential
 -- IDENTITY: Pass the client id and OAuth 2.0 Token Endpoint taken from your Azure Active Directory Application
 -- SECRET: Provide your AAD Application Service Principal key.
@@ -97,33 +99,11 @@ WITH
     IDENTITY = 'myuser',
     SECRET = 'dRIZB1nQbsIa2pi+o45h1pFRbrNiiAbjMoT3WVlskJf7e9nCwgP9imVFwXm8oG7YYHZyTvWkCZQ/Qxj7UzsdbA=='
 ;
---Enter the Authorization endpoint URL. For Azure Active Directory, this URL will be similar to the following URL, 
---where <client_id> is replaced with the client id that identifies your application to the OAuth 2.0 server.
---ttps://login.microsoftonline.com/<client_id>/oauth2/authorize
--- It should look something like this:
---https://login.microsoftonline.com/<client_id>/oauth2/authorize
---client_id  required The Application ID assigned to your app when you registered it with Azure AD. You can find this in the Azure Portal. Click Azure Active Directory in the services sidebar, click App registrations, and choose the application.
---https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-protocols-oauth-code
---CREATE DATABASE SCOPED CREDENTIAL ADLCredential
---WITH
---    IDENTITY = 'myuser',
---    SECRET = 'BjdIlmtKp4Fpyh9hIvr8HJlUida/seM5kQ3EpLAmeDI='
-;
+
 
 --==============================================================================
 -- C: Create an external data source
 --==============================================================================
-
-
-
--- TYPE: HADOOP - PolyBase uses Hadoop APIs to access data in Azure Data Lake Store.
--- LOCATION: Provide Azure Data Lake accountname and URI
--- CREDENTIAL: Provide the credential created in the previous step.
-
-
- 
---sp_configure 'Hadoop connectivity', 7
---Reconfigure
 
 -- LOCATION:  Azure account storage account name and blob container name.  
 -- CREDENTIAL: The database scoped credential created above.  
@@ -172,6 +152,36 @@ Drop External Table [EXT].[dimWeatherObservationTypes]
 Drop External Table [EXT].[factWeatherMeasurements]
 */
 
+-- Create the External Table
+CREATE EXTERNAL TABLE [staging].[STG_factWeatherMeasurements_text]
+( 
+	[StationId] [nvarchar](12) NOT NULL, 
+	[ObservationTypeCode] [nvarchar](4) NOT NULL, 
+	[ObservationValueCorrected] [real] NOT NULL, 
+	[ObservationValue] [real] NOT NULL, 
+	[ObservationDate] [date] NOT NULL, 
+	[ObservationSourceFlag] [nvarchar](2) NULL, 
+	[fipscountycode] [varchar](5) NULL 
+) 
+WITH 
+( 
+	DATA_SOURCE = USGSWeatherEvents, 
+	LOCATION = '/usgsdata/weatherdata/factWeatherMeasurements/', 
+	FILE_FORMAT = TextFileFormat 
+);
+
+select count(*) from [staging].[STG_factWeatherMeasurements_text] 
+
+
+
+
+
+--====================================================================================
+--  End of lab section.
+--====================================================================================
+--   Running the rest of the script will create the other tables and datawarehouse
+--===================================================================================
+
 
 
 CREATE EXTERNAL TABLE [EXT].[factWeatherMeasurements] 
@@ -193,9 +203,7 @@ WITH
 
 select count(*) from [EXT].[factWeatherMeasurements] 
 
---====================================================================================
---   Running the rest of the script will create the other tables and datawarehouse
---===================================================================================
+
 --dimWeatherObservationTypes 
 CREATE EXTERNAL TABLE [EXT].[dimWeatherObservationTypes] 
 ( 

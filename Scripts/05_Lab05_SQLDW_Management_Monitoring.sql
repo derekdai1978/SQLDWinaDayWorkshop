@@ -48,6 +48,7 @@ This script is given "As Is" with no warranties and plenty of caveats. Use at yo
 --2.	Expand Databases node, right-click on your data warehouse database and click ‘New Query’. 
 --		Execute the following query in your query window to create a useful View. 
 
+--Drop View dbo.vTableSizes
 
 CREATE VIEW dbo.vTableSizes
 AS

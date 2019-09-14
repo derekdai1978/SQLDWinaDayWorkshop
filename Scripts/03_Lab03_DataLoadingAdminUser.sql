@@ -81,13 +81,14 @@ CREATE EXTERNAL TABLE [staging].[STG_factWeatherMeasurements_parquet]
 	[fpscode] [int] NOT NULL
 )
 WITH (
-DATA_SOURCE = AzureBlobStore,
-LOCATION = N'/Parquet_files/',
+DATA_SOURCE = USGSWeatherEvents,
+LOCATION = N'/usgsdata/Parquet_files/',
 FILE_FORMAT = [Parquet],
 REJECT_TYPE = VALUE,
 REJECT_VALUE = 0)
 GO
 
+--Select Count(*) from [staging].[STG_factWeatherMeasurements_parquet]
 
 --  After running the CREATE TABLE [staging].[STG_parquet_load] in the usgsLoader
 -- run these two commands to compare the loading of a text file vs a Parquet file
@@ -119,7 +120,7 @@ ORDER BY  start_time ASC, dms_step_index
 -- Part 3 - GZIP Compressed Delimited Text
 --==============================================================
 
---   Again, let’s go ahead and execute the following statements before discussing 
+--   Again, letï¿½s go ahead and execute the following statements before discussing 
 --    As admin user:
 
 
@@ -146,8 +147,8 @@ CREATE EXTERNAL TABLE [staging].[STG_factWeatherMeasurements_CompressedText]
 )
 WITH 
 (
-DATA_SOURCE = AzureBlobStore,
-LOCATION = N'/Compressed_Text_files',
+DATA_SOURCE = USGSWeatherEvents,
+LOCATION = N'/usgsdata/Compressed_Text_files',
 FILE_FORMAT = [compressed_TextFileFormat_Ready],
 REJECT_TYPE = VALUE,
 REJECT_VALUE = 0
@@ -155,8 +156,9 @@ REJECT_VALUE = 0
 GO
 
 
+Select Count(*) from [staging].[STG_factWeatherMeasurements_CompressedText]
 
--- Let’s take a moment and compare performance of the three file formats that we used. 
+-- Letï¿½s take a moment and compare performance of the three file formats that we used. 
 -- (NOTE: Wait until the CTAS is completed before you execute the statement below)
 
 SELECT AVG(total_elapsed_time) AS [avg_loadTime_ms], [label]
@@ -173,7 +175,7 @@ GROUP BY [label]
 --==============================================================
 
 
--- Let’s take the same data and try to load it from a single compressed Gzip file. 
+-- Letï¿½s take the same data and try to load it from a single compressed Gzip file. 
 --  As admin user (sqladmin)
 CREATE EXTERNAL TABLE [staging].[STG_factWeatherMeasurements_CompressedText_single_file]
 (
@@ -187,24 +189,16 @@ CREATE EXTERNAL TABLE [staging].[STG_factWeatherMeasurements_CompressedText_sing
 )
 WITH 
 (
-DATA_SOURCE = AzureBlobStore,
-LOCATION = N'singlefile/Compressed_Text_files',
+DATA_SOURCE = USGSWeatherEvents,
+LOCATION = N'/usgsdata/singlefile/Compressed_Text_files',
 FILE_FORMAT = [compressed_TextFileFormat_Ready],
 REJECT_TYPE = VALUE,
 REJECT_VALUE = 0)
 GO
 
-As loading user (usgsloader)
-CREATE TABLE [staging].[STG_CompressedText_single_file]
-WITH 
-(
-DISTRIBUTION = ROUND_ROBIN, HEAP
-)
-AS 
-SELECT *
-FROM [staging].[STG_factWeatherMeasurements_CompressedText_single_file] 
-OPTION(label = 'STG_single_compressed_load')
-GO
+
+Select Count(*) from [staging].[STG_factWeatherMeasurements_CompressedText_single_file]
+
 
 -- Rerun this command when the Loader query is complete
 
@@ -222,7 +216,7 @@ GROUP BY [label]
 --==============================================================
 
 
-While this is running, run the following in another query window as admin user (sqldmin):
+--While this is running, run the following in another query window as admin user (sqldmin):
 Select * 
 FROM sys.dm_pdw_dms_workers dw
 JOIN sys.dm_pdw_exec_requests r 

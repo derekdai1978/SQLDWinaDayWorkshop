@@ -91,7 +91,7 @@ GO
 --==============================================================
 -- Part 4  Impact of Single File Compression
 --==============================================================
--- Let’s take the same data and try to load it from a single compressed Gzip file. 
+-- Letï¿½s take the same data and try to load it from a single compressed Gzip file. 
 --  As admin user (sqladmin)
 
 --  As loading user (usgsloader)
@@ -107,7 +107,6 @@ SELECT *
 FROM [staging].[STG_factWeatherMeasurements_CompressedText_single_file] 
 OPTION(label = 'STG_single_compressed_load')
 GO
-
 
 
 --==============================================================
