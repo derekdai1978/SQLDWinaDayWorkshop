@@ -30,41 +30,11 @@ The content contained in this repository suppors the Introduction to Databicks w
 Steve's GitHub Source https://github.com/steveyoungca/SQLDWinaDayWorkshop
 
 
-## Objectives
-
-<<< Need to update with the objectives of the class>>>
-
-In this session we are going to reviwe the following items:
-
-* Getting started on Databricks (Create a notebook and a Spark cluster)
-* Importing data, Exploratory analysis and Visualizing data
-  * Creating Data frames
-  * Using built-in Spark functions to aggregate data in various ways
-  * Querying Data Lakes with Data Frames
-
-<<<<Update with the datasets we are using and their souce >>>>
-
-The dataset we are using for the initial demo is from Kaggle and is the [Chicago Transit Authority CTA Data#cta-ridership-bus-routes-daily-totals-by-route.csv](https://www.kaggle.com/chicago/chicago-transit-authority-cta-data#cta-ridership-bus-routes-daily-totals-by-route.csv)
-
-The following Databricks workbooks are used during the session.
-[04-Read and Write Data Using Azure Databricks](https://github.com/MicrosoftDocs/mslearn-read-and-write-data-using-azure-databricks/blob/master/DBC/04-Reading-Writing-Data.dbc?raw=true) 
-
-### Intro
-
-The following steps are located in the [Lab Manual](https://github.com/steveyoungca/Intro-Databricks-Workshop/blob/master/Labs%20Files/Steve%20Young%20-%20Walk%20Through%20Labs.docx).
-
-So, before we get into it, we can import a file.  There are a couple of ways to do this, first, we can create a table in the DataBricks cluster by importing the file, **cta-ridership-bus-routes-daily-totals-by-route.csv**  provided in the **Data Files** directory.
-
-
-Once the table is created , follow along with the Juypter notebook.  **Add in Link**
-
-*ADB = Azure Databricks
-
 
 
 ## References and Other Resources
 
-PLEASE NOTE: I am not the owner/creator of any of the notebooks in this repo. Please see below for a list of the source repos containing the notebooks:
+
 
 
 
