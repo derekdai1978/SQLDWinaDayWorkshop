@@ -44,23 +44,27 @@ This script is given "As Is" with no warranties and plenty of caveats. Use at yo
 -- A: Create a Database Master Key And Certificate
 -- Only necessary if one does not already exist.
 -- Required to encrypt the credential secret in the next step.
+-- 
 -- For more information on Master Key: https://msdn.microsoft.com/library/ms174382.aspx?f=255&MSPPError=-2147217396
 
 
 
 
---CREATE MASTER KEY;
+-- --CREATE MASTER KEY;
 
-IF NOT EXISTS (SELECT * FROM sys.symmetric_keys WHERE symmetric_key_id = 101 ) --name = '##MS_ServiceMasterKey##') 
-BEGIN
-  PRINT 'Creating Database Master Key'
-  CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'PutYourDemoEncryptionPassword@!!'
-END
-ELSE
-BEGIN
- PRINT 'Database Master Key Alread Exists'
-END 
+-- IF NOT EXISTS (SELECT * FROM sys.symmetric_keys WHERE symmetric_key_id = 101 ) --name = '##MS_ServiceMasterKey##') 
+-- BEGIN
+--   PRINT 'Creating Database Master Key'
+--   CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'PutYourDemoEncryptionPassword@!!'
+-- END
+-- ELSE
+-- BEGIN
+--  PRINT 'Database Master Key Alread Exists'
+-- END 
+-- GO
 
+--   You may get error message that the “key” is already created.  
+--   You still need to run the Master Certificate in the Master Database  
 --  ===================================================================
 --               Master Certificate - Run In Master
 --  =================================================================== 
@@ -86,18 +90,18 @@ ELSE
 -- IDENTITY: Pass the client id and OAuth 2.0 Token Endpoint taken from your Azure Active Directory Application
 -- SECRET: Provide your AAD Application Service Principal key.
 -- For more information on Create Database Scoped Credential: https://msdn.microsoft.com/library/mt270260.aspx
-IF EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'AzureBlobStore')
-DROP EXTERNAL DATA SOURCE AzureBlobStore;  
+IF EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'USGSWeatherEvents')
+DROP EXTERNAL DATA SOURCE USGSWeatherEvents;  
  
 go
 
 
---DROP DATABASE SCOPED CREDENTIAL BLOBCredentialDEV;  
+--DROP DATABASE SCOPED CREDENTIAL USGSWeatherEvents;  
 
-CREATE DATABASE SCOPED CREDENTIAL BLOBCredentialDEV
+CREATE DATABASE SCOPED CREDENTIAL USGSWeatherEventsCredential
 WITH
     IDENTITY = 'myuser',
-    SECRET = 'dRIZB1nQbsIa2pi+o45h1pFRbrNiiAbjMoT3WVlskJf7e9nCwgP9imVFwXm8oG7YYHZyTvWkCZQ/Qxj7UzsdbA=='
+    SECRET = '<< Put the key WeatherData Text from BlobKey.txt file here >>'
 ;
 
 
@@ -110,7 +114,7 @@ WITH
 CREATE EXTERNAL DATA SOURCE USGSWeatherEvents with (  
       TYPE = HADOOP,
       LOCATION ='wasbs://usgsdata@dwdatdstorage.blob.core.windows.net',  
-      CREDENTIAL = BLOBCredentialDEV  
+      CREDENTIAL = USGSWeatherEventsCredential  
 );
  
 
@@ -143,13 +147,32 @@ CREATE SCHEMA [staging]
 GO
 
 
-/*  Clean UP   
+/*  Clean UP   For Demo Reset
 
-
-Drop External Table [EXT].[factWeatherMeasurements] 
+Drop External Table [EXT].[dimUSFIPSCodes]
+GO
 Drop External Table [EXT].[dimWeatherObservationSites]
+GO
 Drop External Table [EXT].[dimWeatherObservationTypes]
+GO
 Drop External Table [EXT].[factWeatherMeasurements]
+GO
+Drop External Table [staging].[STG_factWeatherMeasurements_CompressedText]
+GO
+Drop External Table [staging].[STG_factWeatherMeasurements_CompressedText_single_file]
+GO
+Drop External Table [staging].[STG_factWeatherMeasurements_parquet]
+GO
+Drop External Table [staging].[STG_factWeatherMeasurements_text]
+GO
+Drop External Table [dbo].[dimWeatherObservationSites_EXT]
+GO
+
+
+
+
+
+
 */
 
 -- Create the External Table

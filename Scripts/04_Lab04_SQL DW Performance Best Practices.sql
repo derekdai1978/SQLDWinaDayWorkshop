@@ -56,7 +56,7 @@ CREATE EXTERNAL TABLE [dbo].[dimWeatherObservationSites_EXT]
 WITH
 (DATA_SOURCE = USGSWeatherEvents,
 LOCATION = N'/usgsdata/weatherdata/dimWeatherObservationSites',
-FILE_FORMAT = [TextFileFormat_Ready],
+FILE_FORMAT = [TextFileFormat],
 REJECT_TYPE = VALUE,
 REJECT_VALUE = 0)
 GO
@@ -106,7 +106,7 @@ GO
 
 --	In this section, we will identify the behavior of a query containing replicated table on its first access.
 --1.	Open SQL Server Management Studio on your laptop and connect to your SQL DW instance.
---2.	Expand ‘Databases’ node in the left pane and select ‘AdventureWorksDW’ database. 
+--2.	Expand â€˜Databasesâ€™ node in the left pane and select â€˜AdventureWorksDWâ€™ database. 
 --3.	Open a new query window and execute the following query. This will create a new replicated table from an existing table.
 
 CREATE TABLE [dimWeatherObservationSites_repl]
@@ -138,7 +138,7 @@ WHERE [label] = 'ReplicatedTableQuery';
 --		distributed query (DSQL) plan for the query (What operation took the longest time to execute and why?)
 /*
  SELECT * FROM sys.dm_pdw_request_steps
-WHERE request_id = 'QID8114'
+WHERE request_id = 'QID10649'
 ORDER BY step_index;
 */
 
@@ -168,7 +168,7 @@ WHERE [label] = 'ReplicatedTableQuery';
 --		(DSQL) plan for the query (Do you see the Broadcast Move operation as before? Why or Why not?)
 /*
  SELECT * FROM sys.dm_pdw_request_steps
-WHERE request_id = 'QID5042'
+WHERE request_id = 'QID10574'
 ORDER BY step_index;
 */
 
@@ -194,7 +194,7 @@ WHERE command like 'BuildReplicatedTableCache%';
 
 --1.	Open SQL Server Management Studio on your laptop and connect to you SQL DW instance 
 
---2.	Expand ‘Databases’ node in the left pane and select ‘AdventureWorksDW’ database. 
+--2.	Expand â€˜Databasesâ€™ node in the left pane and select â€˜AdventureWorksDWâ€™ database. 
 
 --3.	Open a new query window and copy/paste the following query. Click on the Display Estimated Execution Plan icon   
 --		and observe the output. What step is estimated to take the longest time?
@@ -234,7 +234,7 @@ OPTION (label = 'slow_query')
 
 
 
---4.	Click on ‘Execute’ to run the query (you may not see any results).
+--4.	Click on â€˜Executeâ€™ to run the query (you may not see any results).
 
 --5.	Open a new query window and execute the following query to monitor the previous query execution 
 --		(How long it took to execute the query and what is the resource class that this query has been executed with?)
@@ -300,12 +300,12 @@ LAG([ObservationValueCorrected]) OVER (PARTITION BY a.[fipscountycode], b.Statio
 FROM [dbo].[factWeatherMeasurements] a
 JOIN [dbo].[dimWeatherObservationSites] b
 ON a.[fipscountycode] = b.fipsCountycode
-WHERE	a.[fipscountycode] like '1%' 
+WHERE	a.[fipscountycode] like '06%' 
 OPTION (label = 'fast_query')
 
---10.	Click on ‘Execute’ to run the query (you may not see any results).
+--10.	Click on â€˜Executeâ€™ to run the query (you may not see any results).
 
---11.	Repeat steps 5 – 8 to monitor this query (use ‘fast_query’ as label). What differences do you 
+--11.	Repeat steps 5 â€“ 8 to monitor this query (use â€˜fast_queryâ€™ as label). What differences do you 
 --		notice between these query executions?
 
 
@@ -318,10 +318,10 @@ OPTION (label = 'fast_query')
 --	In this section, we will learn how to identify queuing related to queries running with large resource classes and 
 --	how to troubleshoot these issues.
 
---1.	Open SQL Server Management Studio on your laptop and connect to your SQL DW instance as ‘usgsLoader’ user.
+--1.	Open SQL Server Management Studio on your laptop and connect to your SQL DW instance as â€˜usgsLoaderâ€™ user.
 
---2.	Expand ‘Databases’ node in the left pane and select ‘AdventureWorksDW’ database. 
---	   	Open the following SQL script in new query window and Click on ‘Execute’ to run the query. 
+--2.	Expand â€˜Databasesâ€™ node in the left pane and select â€˜AdventureWorksDWâ€™ database. 
+--	   	Open the following SQL script in new query window and Click on â€˜Executeâ€™ to run the query. 
 
 --Original Query
 
@@ -342,7 +342,7 @@ ON a.[fipscountycode] = b.fipsCountycode
 OPTION (label = 'long_query')
 
 
---3.	While the above query running, open a new query window as ‘sqladmin’ user and execute the following SQL script in it.
+--3.	While the above query running, open a new query window as â€˜sqladminâ€™ user and execute the following SQL script in it.
 
 --Original query
 -- SELECT	ReadingTimestamp,
@@ -364,7 +364,7 @@ WHERE	a.[fipscountycode] like '1%'
 OPTION (label = 'fast_query')
 
 --4.	Open a new query window and execute the following query to monitor the previous query 
---		execution (Do you see any queries in ‘Suspended’ state, why?  Hint: Notice the ‘resource_class’ column)
+--		execution (Do you see any queries in â€˜Suspendedâ€™ state, why?  Hint: Notice the â€˜resource_classâ€™ column)
 
 SELECT *
 FROM    sys.dm_pdw_exec_requests
@@ -373,7 +373,7 @@ WHERE [status] in ('Running', 'Suspended')
  
 
 --5.	Execute the following query to see what queries are waiting. (Do you see any sessions waiting, why? 
---		Hint: Notice the ‘state’ column with ‘Queued’ state and check the corresponding value in ‘type’ column)
+--		Hint: Notice the â€˜stateâ€™ column with â€˜Queuedâ€™ state and check the corresponding value in â€˜typeâ€™ column)
 
  SELECT waits.session_id,
       waits.request_id,  
@@ -391,26 +391,26 @@ FROM   sys.dm_pdw_waits waits
 
 --6.	Go to the window that is running long_query script (in step 2 above) and cancel the execution (Click on   icon).
 
---7.	Right-click anywhere in the query window, click on ‘Connection’ and select ‘Change Connection’.
+--7.	Right-click anywhere in the query window, click on â€˜Connectionâ€™ and select â€˜Change Connectionâ€™.
 
---8.	Enter ‘sqladmin’ for login and ‘Password!1234’ for password and click ‘Connect’. 
---		Click on ‘Execute’ to re-execute the query.
+--8.	Enter â€˜sqladminâ€™ for login and â€˜Password!1234â€™ for password and click â€˜Connectâ€™. 
+--		Click on â€˜Executeâ€™ to re-execute the query.
 
 --9.	While the above query running, go back to the query window that was running 
 --		fast_query (in step 3 above) and re-execute it.
 
 --10.	Open a new query window and execute the following query to monitor the previous 
---		query execution (Do you see any queries now in ‘Suspended’ state, why not?  
---		(Hint: Notice the ‘resource_class’ column)
+--		query execution (Do you see any queries now in â€˜Suspendedâ€™ state, why not?  
+--		(Hint: Notice the â€˜resource_classâ€™ column)
 
 
 SELECT *
 FROM    sys.dm_pdw_exec_requests
-WHERE [status] in (‘Running’, ‘Suspended’)
+WHERE [status] in ('Running', 'Suspended')
 
  
 
---	Conclusion: The long running query that was running under ‘StaticRC60’ resource class uses a 
+--	Conclusion: The long running query that was running under â€˜StaticRC60â€™ resource class uses a 
 --	large number of concurrency slots. This will reduce the concurrency as there are not enough 
 --	available concurrency slots. So, you can not run another query even if you are running under the SmallRC. 
 --	But once you change the long query to run under SmallRC, which does not reserve many available concurrency 
@@ -428,8 +428,8 @@ WHERE [status] in (‘Running’, ‘Suspended’)
 --	In this section, we will learn how to enable this feature and observe the performance of a 
 --	long running query under the influence of this feature.
 
---1.	Open SQL Server Management Studio on your laptop and connect to your SQL DW instance as ‘sqladmin’ user.
---2.	Expand ‘System Databases’ node in the left pane and select ‘master’ database. 
+--1.	Open SQL Server Management Studio on your laptop and connect to your SQL DW instance as â€˜sqladminâ€™ user.
+--2.	Expand â€˜System Databasesâ€™ node in the left pane and select â€˜masterâ€™ database. 
 --		Run the following statement to enable result set caching feature on your database.
 
 ALTER DATABASE [AdventureWorksDW]
@@ -453,7 +453,7 @@ FROM sys.databases;
 
  
 
---4.	Expand ‘Databases’ node in the left pane, right-click on ‘AdventureWorksDW’ database and click on ‘New Query’.
+--4.	Expand â€˜Databasesâ€™ node in the left pane, right-click on â€˜AdventureWorksDWâ€™ database and click on â€˜New Queryâ€™.
 
 --5.	Execute the following query in the new query window.
 
@@ -468,7 +468,7 @@ OPTION (label = 'longer_query')
 
 --6.	Wait until the query execution completes and note down the duration.
 
---7.	Execute the same query again by clicking on the ‘Execute’ button. Wait 
+--7.	Execute the same query again by clicking on the â€˜Executeâ€™ button. Wait 
 --		until the query execution completes and note down the duration.
 
 --8.	Did the second execution of the query took under a second? Why?
@@ -481,7 +481,7 @@ WHERE [label] = 'longer_query'
 
 
 --	What differences do you see between both executions of the query? 
---	(HINT: Observe ‘total_elapsed_time’ and ‘resource_class’ columns)
+--	(HINT: Observe â€˜total_elapsed_timeâ€™ and â€˜resource_classâ€™ columns)
 
 --10.	Execute the following query from the same query window. It will show the execution steps of the above query. 
 
@@ -494,7 +494,7 @@ WHERE [label] = 'longer_query')
  
 
 --	What differences do you see between the execution steps of both executions? 
---	(Hint: Observe the ‘operation_type’ and ‘command’ columns)
+--	(Hint: Observe the â€˜operation_typeâ€™ and â€˜commandâ€™ columns)
 
 --11.	Slightly modify the long query by changing the value in the WHERE condition as below and re-execute the query. 
 
