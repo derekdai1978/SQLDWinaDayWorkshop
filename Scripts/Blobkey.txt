@@ -1,0 +1,4 @@
+THe following BLOB key was provided for the Workshop.  The key expires at the end of the workshop.
+
+For WeatherData Text - dwdatstorage
+IetF/+qi9EZWXIwG/leRQRDyszfHMBTdMzPZWCLRng+3B0K4MGEwOJ/p1syKhPH22UasPuTAy7rfYOkAXMeq8A==
